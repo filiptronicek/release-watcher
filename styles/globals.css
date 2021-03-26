@@ -14,3 +14,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #1D1C19;
+    color: white;
+  }
+}
