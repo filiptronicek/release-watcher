@@ -36,7 +36,7 @@ export default function Home() {
             className={styles.card}
           >
             <h3>GitHub.com &rarr;</h3>
-            <p>Deployed from fkwfinfAh {dateF(1616783267318)}</p>
+            <p>Deployed from <code>fkwfinfAh</code> {dateF(1616783267318)}</p>
           </a>
 
           <a
@@ -45,7 +45,7 @@ export default function Home() {
           >
             <h3>GitLab.com &rarr;</h3>
             <p>
-              Deployed from fkwfinfAh {dateF(1616783067348)}
+              Deployed from <code>fkwfinfAh</code> {dateF(1616783067348)}
             </p>
           </a>
         </div>
