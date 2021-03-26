@@ -32,7 +32,7 @@ export default function Home() {
 
         <div className={styles.grid}>
           <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
+            href="https://github.com/"
             className={styles.card}
           >
             <h3>GitHub.com &rarr;</h3>
@@ -40,12 +40,12 @@ export default function Home() {
           </a>
 
           <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://gitlab.com"
             className={styles.card}
           >
-            <h3>Deploy &rarr;</h3>
+            <h3>GitLab.com &rarr;</h3>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              Deployed from fkwfinfAh {dateF(1616783067348)}
             </p>
           </a>
         </div>
