@@ -3,14 +3,14 @@ import styles from '../styles/Home.module.css'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useEffect, useState } from 'react';
-import timeSync from '../lib/api';
+import { watcherFetcher } from '../lib/api';
 
 dayjs.extend(relativeTime);
 
-export default function Home({currentTime}) {
+export default function Home({watched}) {
 
   const dateF = (timeStamp) => {
-    const dateToRender = dayjs().to(dayjs(timeStamp));
+    const dateToRender = dayjs().to(dayjs.unix(timeStamp / 1000));
     return (
       <span>{dateToRender}</span>
     )
@@ -20,7 +20,6 @@ export default function Home({currentTime}) {
     <div className={styles.container}>
       <Head>
         <title>Release watcher</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
@@ -35,19 +34,23 @@ export default function Home({currentTime}) {
         <div className={styles.grid}>
           <a
             href="https://github.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             className={styles.card}
           >
             <h3>GitHub.com &rarr;</h3>
-            <p>Deployed from <code>fkwfinfAh</code> {dateF(1616783267318)}</p>
+            <p>Deployed from <code>{watched.github.version.substr(0, 7)}</code> {dateF(watched.github.time)}</p>
           </a>
 
           <a
             href="https://gitlab.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className={styles.card}
           >
             <h3>GitLab.com &rarr;</h3>
             <p>
-              Deployed from <code>fkwfinfAh</code> {currentTime} {dateF(1616783067348)}
+              Deployed from <code>{watched.gitlab.version.substr(0, 7)}</code>  {dateF(watched.gitlab.time)}
             </p>
           </a>
         </div>
@@ -62,15 +65,19 @@ export default function Home({currentTime}) {
         >
           Filip
         </a>
+        &nbsp;-&nbsp;
+        <span>
+            <a href="/about">About</a>
+        </span>
       </footer>
     </div>
   )
 }
 
 export async function getStaticProps({}) {
-  const currentTime = await timeSync() || "⚠ failed to fetch";
+  const watched = await watcherFetcher() || "⚠ failed to fetch";
 
   return {
-    props: { currentTime },
+    props: { watched },
   }
 }
