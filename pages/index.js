@@ -2,10 +2,12 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { useEffect, useState } from 'react';
+import timeSync from '../lib/api';
 
 dayjs.extend(relativeTime);
 
-export default function Home() {
+export default function Home({currentTime}) {
 
   const dateF = (timeStamp) => {
     const dateToRender = dayjs().to(dayjs(timeStamp));
@@ -23,7 +25,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Release watcher
+          Release watcher 👀
         </h1>
 
         <p className={styles.description}>
@@ -45,14 +47,14 @@ export default function Home() {
           >
             <h3>GitLab.com &rarr;</h3>
             <p>
-              Deployed from <code>fkwfinfAh</code> {dateF(1616783067348)}
+              Deployed from <code>fkwfinfAh</code> {currentTime} {dateF(1616783067348)}
             </p>
           </a>
         </div>
       </main>
 
       <footer className={styles.footer}>
-      Made by&nbsp;
+        Made by&nbsp;
         <a
           href="https://trnck.dev"
           target="_blank"
@@ -63,4 +65,12 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export async function getStaticProps({}) {
+  const currentTime = await timeSync() || "⚠ failed to fetch";
+
+  return {
+    props: { currentTime },
+  }
 }
