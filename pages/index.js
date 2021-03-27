@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { watcherFetcher } from '../lib/api';
 
 dayjs.extend(relativeTime);
+const generator = Math.random();
 
 export default function Home({ watched }) {
 
@@ -30,7 +31,17 @@ export default function Home({ watched }) {
     )
   }
 
-  const generator = Math.random();
+  const [date, setDate] = useState(dayjs());
+  const [updated, setUpdated] = useState("just now")
+
+  setInterval(() => {
+    const secondsSince = Math.floor((dayjs() - date) / 1000);
+    if (secondsSince < 60) {
+      setUpdated(`${secondsSince} second${secondsSince !== 1 ? "s" : ""} ago`)
+  } else {
+    setUpdated(dayjs().to(date));
+  }
+  }, 1000)
 
   return (
     <div className={styles.container}>
@@ -44,7 +55,8 @@ export default function Home({ watched }) {
         </h1>
 
         <p className={styles.description}>
-          The place to get deploy information about GitHub and GitLab{' '}
+          The place to get deploy information about GitHub and GitLab <br />
+          <small>Updated {updated}</small>
         </p>
 
         <div className={styles.grid}>
