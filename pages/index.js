@@ -74,7 +74,7 @@ export default function Home({watched}) {
   )
 }
 
-export async function getStaticProps({}) {
+export async function getServerSideProps({}) {
   const watched = await watcherFetcher() || "⚠ failed to fetch";
 
   return {
