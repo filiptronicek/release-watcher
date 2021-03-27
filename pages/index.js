@@ -7,7 +7,7 @@ import { watcherFetcher } from '../lib/api';
 
 dayjs.extend(relativeTime);
 
-export default function Home({watched}) {
+export default function Home({ watched }) {
 
   const dateF = (timeStamp) => {
     const dateToRender = dayjs().to(dayjs.unix(timeStamp / 1000));
@@ -15,6 +15,23 @@ export default function Home({watched}) {
       <span>{dateToRender}</span>
     )
   }
+
+  const renderProvider = (provider, domain) => {
+    return (
+      <a
+        href={`https://${domain}/`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.card}
+      >
+        <h3>{domain.charAt(0).toUpperCase() + domain.slice(1)} &rarr;</h3>
+        <p>Deployed from <code>{provider.version.substr(0, 7)}</code> {dateF(watched.github.time)}</p>
+      </a>
+    )
+  }
+
+  const generator = Math.random();
+  console.log(generator)
 
   return (
     <div className={styles.container}>
@@ -32,27 +49,8 @@ export default function Home({watched}) {
         </p>
 
         <div className={styles.grid}>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h3>GitHub.com &rarr;</h3>
-            <p>Deployed from <code>{watched.github.version.substr(0, 7)}</code> {dateF(watched.github.time)}</p>
-          </a>
-
-          <a
-            href="https://gitlab.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h3>GitLab.com &rarr;</h3>
-            <p>
-              Deployed from <code>{watched.gitlab.version.substr(0, 7)}</code>  {dateF(watched.gitlab.time)}
-            </p>
-          </a>
+          {renderProvider(watched.github, "github.com")}
+          {renderProvider(watched.gitlab, "gitlab.com")}
         </div>
       </main>
 
@@ -67,14 +65,14 @@ export default function Home({watched}) {
         </a>
         &nbsp;-&nbsp;
         <span>
-            <a href="/about">About</a>
+          <a href="/about">About</a>
         </span>
       </footer>
     </div>
   )
 }
 
-export async function getServerSideProps({}) {
+export async function getServerSideProps({ }) {
   const watched = await watcherFetcher() || "⚠ failed to fetch";
 
   return {
