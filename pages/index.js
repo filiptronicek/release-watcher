@@ -31,7 +31,6 @@ export default function Home({ watched }) {
   }
 
   const generator = Math.random();
-  console.log(generator)
 
   return (
     <div className={styles.container}>
@@ -49,8 +48,12 @@ export default function Home({ watched }) {
         </p>
 
         <div className={styles.grid}>
-          {renderProvider(watched.github, "github.com")}
-          {renderProvider(watched.gitlab, "gitlab.com")}
+          {
+            (generator > 0.5) ? renderProvider(watched.github, "github.com") : renderProvider(watched.gitlab, "gitlab.com")
+          }
+          {
+            (generator > 0.5) ? renderProvider(watched.gitlab, "gitlab.com") : renderProvider(watched.github, "github.com")
+          }
         </div>
       </main>
 
