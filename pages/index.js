@@ -25,7 +25,7 @@ export default function Home({ watched }) {
         className={styles.card}
       >
         <h3>{domain.charAt(0).toUpperCase() + domain.slice(1)} &rarr;</h3>
-        <p>Deployed from <code>{provider.version.substr(0, 7)}</code> {dateF(watched.github.time)}</p>
+        <p>Deployed from <code>{provider.version.substr(0, 7)}</code> {dateF(provider.time)}</p>
       </a>
     )
   }
