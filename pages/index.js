@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { watcherFetcher } from '../lib/api';
 
 dayjs.extend(relativeTime);
