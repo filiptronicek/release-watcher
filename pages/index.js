@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { watcherFetcher } from '../lib/api';
 
 dayjs.extend(relativeTime);
-const generator = Math.random();
 
 export default function Home({ watched }) {
 
@@ -61,10 +60,8 @@ export default function Home({ watched }) {
 
         <div className={styles.grid}>
           {
-            (generator > 0.5) ? renderProvider(watched.github, "github.com") : renderProvider(watched.gitlab, "gitlab.com")
-          }
-          {
-            (generator > 0.5) ? renderProvider(watched.gitlab, "gitlab.com") : renderProvider(watched.github, "github.com")
+            renderProvider(watched.github, "github.com")
+            renderProvider(watched.gitlab, "gitlab.com")
           }
         </div>
       </main>
