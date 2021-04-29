@@ -61,6 +61,8 @@ export default function Home({ watched }) {
         <div className={styles.grid}>
           {
             renderProvider(watched.github, "github.com")
+          }
+          {
             renderProvider(watched.gitlab, "gitlab.com")
           }
         </div>
